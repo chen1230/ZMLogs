@@ -9,5 +9,6 @@
 @import UIKit;
 #import "YSXLogs.h"
 @interface ZMViewController : UIViewController
+@property (nonatomic,copy,class) NSString *name;
 
 @end

@@ -65,7 +65,7 @@
 		864503F32F37DF7B3AB1E0C2 /* Pods-ZMLogs_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZMLogs_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZMLogs_Example/Pods-ZMLogs_Example.release.xcconfig"; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		98E00007531C5180089BA2C4 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		AD4248A96B85CD8C120E107A /* ZMLogs.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ZMLogs.podspec; path = ../ZMLogs.podspec; sourceTree = "<group>"; };
+		AD4248A96B85CD8C120E107A /* ZMLogs.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ZMLogs.podspec; path = ../ZMLogs.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D699D369CAEC98533621B68F /* Pods_ZMLogs_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZMLogs_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 

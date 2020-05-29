@@ -27,4 +27,13 @@
     // Dispose of any resources that can be recreated.
 }
 
++ (void)setName:(NSString *)name{
+    self.name = name;
+}
+
++ (NSString *)name {
+    
+    return self.name;
+}
+
 @end
