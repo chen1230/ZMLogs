@@ -1,0 +1,6 @@
+framework module ZMLogs {
+  umbrella header "ZMLogs-umbrella.h"
+
+  export *
+  module * { export * }
+}

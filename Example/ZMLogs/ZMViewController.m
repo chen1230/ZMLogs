@@ -18,6 +18,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    YSXLogs.logLevelInfo(@"日志来了",YSXLogTag_Httpapi);
 }
 
 - (void)didReceiveMemoryWarning

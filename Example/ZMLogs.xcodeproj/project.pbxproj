@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -38,7 +38,7 @@
 
 /* Begin PBXFileReference section */
 		1F4EAEAC9CEB8FF256B58CC1 /* Pods-ZMLogs_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZMLogs_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZMLogs_Tests/Pods-ZMLogs_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		2992B34CAAE4E4D823330D74 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		2992B34CAAE4E4D823330D74 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		55C40E12A3BD1144ECA7CA1B /* Pods_ZMLogs_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZMLogs_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58A195388D20070C39A /* ZMLogs_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZMLogs_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -64,8 +64,8 @@
 		7A493B353A04D27D6CAF8A1D /* Pods-ZMLogs_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZMLogs_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZMLogs_Tests/Pods-ZMLogs_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		864503F32F37DF7B3AB1E0C2 /* Pods-ZMLogs_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZMLogs_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZMLogs_Example/Pods-ZMLogs_Example.release.xcconfig"; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		98E00007531C5180089BA2C4 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		AD4248A96B85CD8C120E107A /* ZMLogs.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = ZMLogs.podspec; path = ../ZMLogs.podspec; sourceTree = "<group>"; };
+		98E00007531C5180089BA2C4 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		AD4248A96B85CD8C120E107A /* ZMLogs.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ZMLogs.podspec; path = ../ZMLogs.podspec; sourceTree = "<group>"; };
 		D699D369CAEC98533621B68F /* Pods_ZMLogs_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZMLogs_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -246,7 +246,7 @@
 			attributes = {
 				CLASSPREFIX = ZM;
 				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = uxmaicai;
+				ORGANIZATIONNAME = zhumu;
 				TargetAttributes = {
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -254,10 +254,11 @@
 				};
 			};
 			buildConfigurationList = 6003F585195388D10070C39A /* Build configuration list for PBXProject "ZMLogs" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -370,12 +371,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ZMLogs_Example/Pods-ZMLogs_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
 				"${BUILT_PRODUCTS_DIR}/ZMLogs/ZMLogs.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZMLogs.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,6 +523,7 @@
 			baseConfigurationReference = 6F0A74D5D476EA218DF59ADC /* Pods-ZMLogs_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8JWSMV6EC3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZMLogs/ZMLogs-Prefix.pch";
 				INFOPLIST_FILE = "ZMLogs/ZMLogs-Info.plist";
@@ -536,6 +540,7 @@
 			baseConfigurationReference = 864503F32F37DF7B3AB1E0C2 /* Pods-ZMLogs_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8JWSMV6EC3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZMLogs/ZMLogs-Prefix.pch";
 				INFOPLIST_FILE = "ZMLogs/ZMLogs-Info.plist";

@@ -7,7 +7,7 @@
 //
 
 @import UIKit;
-
+#import "YSXLogs.h"
 @interface ZMViewController : UIViewController
 
 @end
