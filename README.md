@@ -22,7 +22,7 @@ pod 'ZMLogs'
 
 ## Author
 
-uxmaicai, chent@suirui.com
+chen1230, chent@suirui.com
 
 ## License
 
