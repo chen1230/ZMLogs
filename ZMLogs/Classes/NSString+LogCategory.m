@@ -7,6 +7,7 @@
 //
 
 #import "NSString+LogCategory.h"
+#import <objc/runtime.h>
 
 @implementation NSString (LogCategory)
 
@@ -18,21 +19,29 @@
         }else if ([msg isKindOfClass: [NSDictionary class]] || [msg isKindOfClass: [NSMutableDictionary class]] ){
             message = [self convertToJsonData:msg];
         }
-        
         return [NSString stringWithFormat:@"%@%@",self,message];
     };
 }
-
 
 CG_INLINE NSString *appendByC(const char *content){
     NSLog(@"%s",content);
     return [NSString stringWithFormat:@"%s",content];
 }
 
+- (void)setAppends:(NSArray *)appends{
+    objc_setAssociatedObject(self, @"appends", appends, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (NSArray *)appends {
+   return objc_getAssociatedObject(self, @"appends");
+}
+
 - (NSString * (^)(const char *))appendC {
     return ^(const char *msg){
         NSString *message = appendByC(msg);
-        return [NSString stringWithFormat:@"%@%@",self,message];
+        NSString *str = [NSString stringWithFormat:@"%@%@",self,message];
+        str.appends = [NSString stringWithFormat:@"%@%@",self,msg];
+        return str;
     };
 }
 
@@ -44,11 +53,11 @@ CG_INLINE NSString *appendByC(const char *content){
         }else if ([msg isKindOfClass: [NSDictionary class]] || [msg isKindOfClass: [NSMutableDictionary class]] ){
             message = [ NSString convertToJsonData:msg];
         }
-        
-        return [NSString stringWithFormat:@"%@%@",self,message];
+        NSString *str = [NSString stringWithFormat:@"%@%@",self,message];
+        str.appends = [NSString stringWithFormat:@"%@%@",self,msg];
+        return str;
     };
 }
-
 
 + (NSString *)objArrayToJSON:(NSArray *)array {
 
@@ -82,7 +91,7 @@ CG_INLINE NSString *appendByC(const char *content){
     //去掉字符串中的换行符
     [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
     
-return mutStr;
+    return mutStr;
 
 }
 @end

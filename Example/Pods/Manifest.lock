@@ -1,33 +1,37 @@
 PODS:
-  - CocoaLumberjack (3.5.3):
-    - CocoaLumberjack/Core (= 3.5.3)
-  - CocoaLumberjack/Core (3.5.3)
+  - CocoaLumberjack (3.4.2):
+    - CocoaLumberjack/Default (= 3.4.2)
+    - CocoaLumberjack/Extensions (= 3.4.2)
+  - CocoaLumberjack/Default (3.4.2)
+  - CocoaLumberjack/Extensions (3.4.2):
+    - CocoaLumberjack/Default
   - FBSnapshotTestCase (2.1.4):
     - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
   - FBSnapshotTestCase/Core (2.1.4)
   - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
-  - ZMLogs (0.1.0):
-    - CocoaLumberjack
+  - ZMLogs (0.1.3):
+    - CocoaLumberjack (~> 3.4.0)
 
 DEPENDENCIES:
   - FBSnapshotTestCase
   - ZMLogs (from `../`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - CocoaLumberjack
+  https://github.com/CocoaPods/Specs.git:
     - FBSnapshotTestCase
+  trunk:
+    - CocoaLumberjack
 
 EXTERNAL SOURCES:
   ZMLogs:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
+  CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
-  ZMLogs: e42ea50ea5d769ed358ed38cba8aedb78de15488
+  ZMLogs: e9c5f086e35e2f35f047da6ca20813594f485198
 
-PODFILE CHECKSUM: 730ddf578bddc98801fb618ed1064110d62904f2
+PODFILE CHECKSUM: 9462d4ac4f175221cc0f895d391956663584dba1
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.9.2

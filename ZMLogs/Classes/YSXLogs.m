@@ -20,7 +20,31 @@
 #define LOG_FLAG_DEBUG    DDLogFlagDebug
 #define LOG_FLAG_VERBOSE  DDLogFlagVerbose
 
+static BOOL _logDebug = nil;
+static LogBlock _logBlock = nil;
 @implementation YSXLogs
+
+//@dynamic LogLevelDebug;
+
++ (void)load {
+    YSXLogs.logDebug = NO;
+}
+
++ (void)setLogDebug:(BOOL)logDebug{
+    _logDebug = logDebug;
+}
+
++ (BOOL)logDebug {
+    return _logDebug;
+}
+
++ (LogBlock)logBlock {
+    return _logBlock;
+}
+
++ (void)setLogBlock:(LogBlock)logBlock {
+    _logBlock = logBlock;
+}
 
 /**
  LOG_ASYNC_VERBOSE 是否异步
@@ -64,7 +88,7 @@
         }else if ([msg isKindOfClass: [NSDictionary class]] || [msg isKindOfClass: [NSMutableDictionary class]] ){
             message = [NSString convertToJsonData:msg];
         }
-        
+     
         DDLogFlag flgValue = LOG_FLAG_INFO;
         NSString *ler = @"I";
         
@@ -108,9 +132,16 @@
         }
         
         NSString*str = [NSString stringWithFormat:@"|%@|%@|%@",ler,tagStr,message];
-        
+        if (self.logBlock) {
+            self.logBlock(@[ler,tagStr,msg]);
+        }
         [DDLog log:isAsynchronous level:LOG_LEVEL_DEF flag:flgValue context:0 file:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ tag:0 format:(str),nil];
     };
+}
+
+
++ (void)LogsInfo:(void(^)(NSArray *))logBlock {
+    self.logBlock = logBlock;
 }
 
 + (NSArray *)getTags:(NSInteger)value{
@@ -207,5 +238,14 @@
     };
 }
 
++ (void)log:(NSString *)msg tags:(NSString *)tagString levelString:(NSString *)levelStr{
+    NSArray *tagsNames = @[@"I",@"E",@"W",@"I",@"D",@"I"];
+    NSAssert([tagsNames containsObject:levelStr], @"levelStr is not level");
+    NSInteger index = 0;
+    if (![levelStr isEqualToString:@"I"]) {
+        index = [tagsNames indexOfObject:levelStr];
+    }
+    [YSXLogs log:msg tags:tagString level:index];
+}
 
 @end

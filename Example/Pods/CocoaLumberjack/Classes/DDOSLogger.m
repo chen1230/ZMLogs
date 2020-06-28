@@ -1,6 +1,6 @@
 // Software License Agreement (BSD License)
 //
-// Copyright (c) 2010-2019, Deusty, LLC
+// Copyright (c) 2010-2016, Deusty, LLC
 // All rights reserved.
 //
 // Redistribution and use of this software in source and binary forms,
@@ -14,43 +14,11 @@
 //   prior written permission of Deusty, LLC.
 
 #import "DDOSLogger.h"
-
 #import <os/log.h>
-
-@interface DDOSLogger () {
-    NSString *_subsystem;
-    NSString *_category;
-}
-@property (copy, nonatomic, readonly) NSString *subsystem;
-@property (copy, nonatomic, readonly) NSString *category;
-@property (strong, nonatomic, readwrite) os_log_t  logger;
-@end
-
-@implementation DDOSLogger
-
-@synthesize subsystem = _subsystem;
-@synthesize category = _category;
-
-#pragma mark - Initialization
-
-/**
- * Assertion
- * Swift: (String, String)?
- */
-- (instancetype)initWithSubsystem:(NSString *)subsystem category:(NSString *)category {
-    NSAssert((subsystem == nil) == (category == nil), @"Either both subsystem and category or neither can be nil.");
-    if (self = [super init]) {
-        _subsystem = [subsystem copy];
-        _category = [category copy];
-    }
-    return self;
-}
 
 static DDOSLogger *sharedInstance;
 
-- (instancetype)init {
-    return [self initWithSubsystem:nil category:nil];
-}
+@implementation DDOSLogger
 
 + (instancetype)sharedInstance {
     static dispatch_once_t DDOSLoggerOnceToken;
@@ -62,59 +30,52 @@ static DDOSLogger *sharedInstance;
     return sharedInstance;
 }
 
-#pragma mark - os_log
-
-- (os_log_t)getLogger {
-    if (self.subsystem == nil || self.category == nil) {
-        return OS_LOG_DEFAULT;
+- (instancetype)init {
+    if (sharedInstance != nil) {
+        return nil;
     }
-    __auto_type subdomain = self.subsystem.UTF8String;
-    __auto_type category = self.category.UTF8String;
-    return os_log_create(subdomain, category);
-}
 
-- (os_log_t)logger {
-    if (_logger == nil)  {
-        _logger = [self getLogger];
+    if (self = [super init]) {
+        return self;
     }
-    return _logger;
-}
 
-#pragma mark - DDLogger
+    return nil;
+}
 
 - (void)logMessage:(DDLogMessage *)logMessage {
     // Skip captured log messages
     if ([logMessage->_fileName isEqualToString:@"DDASLLogCapture"]) {
         return;
     }
-
+    
     if(@available(iOS 10.0, macOS 10.12, tvOS 10.0, watchOS 3.0, *)) {
-
+        
         NSString * message = _logFormatter ? [_logFormatter formatLogMessage:logMessage] : logMessage->_message;
-        if (message != nil) {
+        if (message) {
             const char *msg = [message UTF8String];
-            __auto_type logger = [self logger];
+            
             switch (logMessage->_flag) {
                 case DDLogFlagError     :
-                    os_log_error(logger, "%{public}s", msg);
+                    os_log_error(OS_LOG_DEFAULT, "%{public}s", msg);
                     break;
                 case DDLogFlagWarning   :
                 case DDLogFlagInfo      :
-                    os_log_info(logger, "%{public}s", msg);
+                    os_log_info(OS_LOG_DEFAULT, "%{public}s", msg);
                     break;
                 case DDLogFlagDebug     :
                 case DDLogFlagVerbose   :
                 default                 :
-                    os_log_debug(logger, "%{public}s", msg);
+                    os_log_debug(OS_LOG_DEFAULT, "%{public}s", msg);
                     break;
             }
         }
-
+        
     }
 
 }
 
-- (DDLoggerName)loggerName {
-    return DDLoggerNameOS;
+- (NSString *)loggerName {
+    return @"cocoa.lumberjack.osLogger";
 }
+
 @end

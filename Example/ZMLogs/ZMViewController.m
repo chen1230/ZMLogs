@@ -7,18 +7,23 @@
 //
 
 #import "ZMViewController.h"
-
+#import <YSXLogs.h>
+#import <NSString+LogCategory.h>
 @interface ZMViewController ()
 
 @end
-
+static NSString *_name = nil;
 @implementation ZMViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    YSXLogs.logLevelInfo(@"日志来了",YSXLogTag_Httpapi);
+    
+
+    YSXLogs.logLevelInfo(@"日志来了".append(@"eeee"),YSXLogTag_Httpapi);
+    YSXLogs.logLevelInfo(@"日志来了".append(@"aaaa"),YSXLogTag_Httpapi);
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -28,12 +33,12 @@
 }
 
 + (void)setName:(NSString *)name{
-    self.name = name;
+    _name = name;
 }
 
 + (NSString *)name {
     
-    return self.name;
+    return _name;
 }
 
 @end

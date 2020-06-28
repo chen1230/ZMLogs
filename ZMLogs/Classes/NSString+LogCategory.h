@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (LogCategory)
+@property (nonatomic, copy) NSString *appends;
 + (NSString * (^)(id))append;
 
 - (NSString * (^)(id))append;

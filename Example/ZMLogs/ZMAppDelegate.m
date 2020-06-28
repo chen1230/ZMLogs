@@ -13,7 +13,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-        
+        #ifdef DEBUG
+             YSXLogs.logDebug = YES;
+        #else
+             YSXLogs.logDebug = NO;
+        #endif
+            [YSXLogs LogsInfo:^(NSArray * _Nonnull arr) {
+                
+            }];
+    
+            YSXLogs.logLevelInfo(@"日志来了".append(@"1111"),YSXLogTag_Httpapi);
+
     return YES;
 }
 

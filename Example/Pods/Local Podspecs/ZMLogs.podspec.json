@@ -1,19 +1,19 @@
 {
   "name": "ZMLogs",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "summary": "A short description of ZMLogs.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/uxmaicai/ZMLogs",
+  "homepage": "https://github.com/chen1230/ZMLogs",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "uxmaicai": "chent@suirui.com"
+    "chent": "chent@suirui.com"
   },
   "source": {
-    "git": "https://github.com/uxmaicai/ZMLogs.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/chen1230/ZMLogs.git",
+    "tag": "0.1.3"
   },
   "platforms": {
     "ios": "8.0",
@@ -22,7 +22,7 @@
   "source_files": "ZMLogs/Classes/**/*",
   "dependencies": {
     "CocoaLumberjack": [
-
+      "~> 3.4.0"
     ]
   }
 }

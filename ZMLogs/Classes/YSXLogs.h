@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import "NSString+LogCategory.h"
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger,YSXLogStatus) {
@@ -32,6 +33,8 @@ typedef NS_ENUM(NSInteger,YSXLogStatus) {
 #define YSXInfoLog(frmt,...) DDLogInfo(frmt, ##__VA_ARGS__)
 
 
+typedef void(^LogBlock)(NSArray *logArray);
+
 #ifdef DEBUG
 static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 #else
@@ -40,6 +43,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 @interface YSXLogs : NSObject
 
+@property (nonatomic,class,assign) BOOL logDebug;
+
+@property (nonatomic,class,copy) LogBlock logBlock;
+
++ (void)LogsInfo:(void(^)(NSArray *))logBlock;
 
 + (void (^)(id,YSXLogStatus))logLevelError;
 
@@ -78,6 +86,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 + (void)logLevelVerbose:(NSString *)msg tags:(NSString *)tagString;
 
 + (void)logLevelVerbose:(NSString *)msg tagType:(YSXLogStatus)tags;
+
++ (void)log:(NSString *)msg tags:(NSString *)tagString levelString:(NSString *)levelStr;
 
 @end
 
