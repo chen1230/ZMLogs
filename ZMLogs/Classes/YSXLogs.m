@@ -77,7 +77,7 @@ static LogBlock _logBlock = nil;
 + (void (^)(id,YSXLogStatus ,DDLogLevel))Log{
     return ^(id msg,YSXLogStatus tagValue,DDLogLevel level){
     
-    NSArray *tagsName = @[@"httpapi",@"request",@"response",@"timeout",@"params",@"onclick",@"config",@"action",@"event",@"meeting",@"contact",@"im",@"filehead",@"info",@"toH5",@"toApp",@"filehead|#VLK="];
+    NSArray *tagsName = @[@"httpapi",@"request",@"response",@"timeout",@"params",@"onclick",@"config",@"action",@"event",@"meeting",@"contact",@"im",@"filehead",@"info",@"toH5",@"toApp",@"noencrypt"];
       NSArray *tags = [YSXLogs getTags:tagValue];
         
         NSMutableString *tagStr = [[NSMutableString alloc] init];
@@ -153,9 +153,13 @@ static LogBlock _logBlock = nil;
     
         NSString*str;
         // 加密
-        if (_addPwdClassName.length>0 && _addPwdClasmethod.length>0 && [tagStr isEqualToString:@"filehead|#VLK="]) {
-             NSString *string1 = [NSString stringWithFormat:@"%@%@",tagStr,message];
-            str = [NSString stringWithFormat:@"|%@|$%@",ler,[self getEncry:string1]];
+        if (_addPwdClassName.length>0 && _addPwdClasmethod.length>0) {
+            if ([tagStr containsString:@"noencrypt"]) {
+                 str = [NSString stringWithFormat:@"|%@|%@|%@",ler,tagStr,message];
+            }else{
+                NSString *string1 = [NSString stringWithFormat:@"%@|%@",tagStr,message];
+                str = [NSString stringWithFormat:@"|%@|$%@",ler,[self getEncry:string1]];
+            }
         }else{
             str = [NSString stringWithFormat:@"|%@|%@|%@",ler,tagStr,message];
         }

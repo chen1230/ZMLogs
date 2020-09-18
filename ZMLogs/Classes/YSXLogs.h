@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger,YSXLogStatus) {
     YSXLogTag_Info      = 1 << 13,
     YSXLogTag_ToH5      = 1 << 14,
     YSXLogTag_ToApp     = 1 << 15,
-    YSXLogTag_VLK       = 1 << 16, 
+    YSXLogTag_NoEncry   = 1 << 16, 
 };
 
 #define YSXDebugLog(frmt,...) DDLogDebug(frmt, ##__VA_ARGS__)
