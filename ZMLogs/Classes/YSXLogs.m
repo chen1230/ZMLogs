@@ -8,6 +8,9 @@
 
 #import "YSXLogs.h"
 #import "NSString+LogCategory.h"
+#import <objc/message.h>
+#import <objc/runtime.h>
+
 #define LOG_ASYNC_ERROR    ( NO && LOG_ASYNC_ENABLED)
 #define LOG_ASYNC_WARN     (YES && LOG_ASYNC_ENABLED)
 #define LOG_ASYNC_INFO     (YES && LOG_ASYNC_ENABLED)
@@ -21,6 +24,8 @@
 #define LOG_FLAG_VERBOSE  DDLogFlagVerbose
 
 static BOOL _logDebug = nil;
+static NSString *_addPwdClassName = nil;
+static NSString *_addPwdClasmethod = nil;
 static LogBlock _logBlock = nil;
 @implementation YSXLogs
 
@@ -46,6 +51,22 @@ static LogBlock _logBlock = nil;
     _logBlock = logBlock;
 }
 
++ (void)setAddPwdClassName:(NSString *)addPwdClassName {
+    _addPwdClassName = addPwdClassName;
+}
+
++ (void)setAddPwdClasmethod:(NSString *)addPwdClasmethod {
+    _addPwdClasmethod = addPwdClasmethod;
+}
+
++ (NSString *)addPwdClassName {
+    return _addPwdClassName;
+}
+
++ (NSString *)addPwdClasmethod {
+    return _addPwdClasmethod;
+}
+
 /**
  LOG_ASYNC_VERBOSE 是否异步
  LOG_LEVEL_DEF 级别
@@ -56,8 +77,7 @@ static LogBlock _logBlock = nil;
 + (void (^)(id,YSXLogStatus ,DDLogLevel))Log{
     return ^(id msg,YSXLogStatus tagValue,DDLogLevel level){
     
-    NSArray *tagsName = @[@"httpapi",@"request",@"response",@"timeout",@"params",@"onclick",@"config",@"action",@"event",@"meeting",@"contact",@"im",@"filehead"];
-        
+    NSArray *tagsName = @[@"httpapi",@"request",@"response",@"timeout",@"params",@"onclick",@"config",@"action",@"event",@"meeting",@"contact",@"im",@"filehead",@"info",@"toH5",@"toApp",@"filehead|#VLK="];
       NSArray *tags = [YSXLogs getTags:tagValue];
         
         NSMutableString *tagStr = [[NSMutableString alloc] init];
@@ -130,15 +150,37 @@ static LogBlock _logBlock = nil;
             }
                 break;
         }
-        
-        NSString*str = [NSString stringWithFormat:@"|%@|%@|%@",ler,tagStr,message];
+    
+        NSString*str;
+        // 加密
+        if (_addPwdClassName.length>0 && _addPwdClasmethod.length>0 && [tagStr isEqualToString:@"filehead|#VLK="]) {
+             NSString *string1 = [NSString stringWithFormat:@"%@%@",tagStr,message];
+            str = [NSString stringWithFormat:@"|%@|$%@",ler,[self getEncry:string1]];
+        }else{
+            str = [NSString stringWithFormat:@"|%@|%@|%@",ler,tagStr,message];
+        }
+
         if (self.logBlock) {
             self.logBlock(@[ler,tagStr,msg]);
         }
+        
         [DDLog log:isAsynchronous level:LOG_LEVEL_DEF flag:flgValue context:0 file:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__ tag:0 format:(str),nil];
     };
 }
 
+//加密
++ (NSString *)getEncry:(NSString *)string{
+    id class = NSClassFromString(self.addPwdClassName);
+    SEL selector = NSSelectorFromString(self.addPwdClasmethod);
+    IMP imp = [class methodForSelector:selector];
+    id(*func)(id,SEL,NSString *) = (void *)imp;
+    NSString * ret = func(class, @selector(encryptString:),string);
+    return ret;
+}
+
++ (NSString *)encryptString:(NSString *)string{
+    return @"";
+}
 
 + (void)LogsInfo:(void(^)(NSArray *))logBlock {
     self.logBlock = logBlock;
@@ -148,7 +190,6 @@ static LogBlock _logBlock = nil;
     
     NSMutableArray *arr = [NSMutableArray array];
         while (value>0) {
-           
             if ((value&1) == 1) {
                 [arr addObject:@1];
             }else{
@@ -215,7 +256,6 @@ static LogBlock _logBlock = nil;
 
 + (void (^)(id,YSXLogStatus))logLevelInfo{
     return ^(id msg,YSXLogStatus tagValue){
-        
         YSXLogs.Log(msg,tagValue,DDLogLevelInfo);
     };
 }

@@ -24,7 +24,7 @@
 }
 
 CG_INLINE NSString *appendByC(const char *content){
-    NSLog(@"%s",content);
+//    NSLog(@"%s",content);
     return [NSString stringWithFormat:@"%s",content];
 }
 
@@ -40,7 +40,7 @@ CG_INLINE NSString *appendByC(const char *content){
     return ^(const char *msg){
         NSString *message = appendByC(msg);
         NSString *str = [NSString stringWithFormat:@"%@%@",self,message];
-        str.appends = [NSString stringWithFormat:@"%@%@",self,msg];
+        str.appends = [NSString stringWithFormat:@"%@%s",self,msg];
         return str;
     };
 }

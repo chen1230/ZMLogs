@@ -25,8 +25,11 @@ typedef NS_ENUM(NSInteger,YSXLogStatus) {
     YSXLogTag_Contact   = 1 << 10,
     YSXLogTag_Im        = 1 << 11,
     YSXLogTag_Filehead  = 1 << 12,
+    YSXLogTag_Info      = 1 << 13,
+    YSXLogTag_ToH5      = 1 << 14,
+    YSXLogTag_ToApp     = 1 << 15,
+    YSXLogTag_VLK       = 1 << 16, 
 };
-
 
 #define YSXDebugLog(frmt,...) DDLogDebug(frmt, ##__VA_ARGS__)
 #define YSXWarnLog(frmt,...) DDLogWarn(frmt, ##__VA_ARGS__)
@@ -46,6 +49,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 @property (nonatomic,class,assign) BOOL logDebug;
 
 @property (nonatomic,class,copy) LogBlock logBlock;
+
+@property (nonatomic,class,copy) NSString *addPwdClassName;
+@property (nonatomic,class,copy) NSString *addPwdClasmethod;
 
 + (void)LogsInfo:(void(^)(NSArray *))logBlock;
 
