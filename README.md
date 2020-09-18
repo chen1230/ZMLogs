@@ -22,7 +22,11 @@ pod 'ZMLogs'
 
 ## Author
 
+<<<<<<< HEAD
 chent, chent@suirui.com
+=======
+chen1230, chent@suirui.com
+>>>>>>> 125bbf2357bfdf479e90a9711f86655fb79e1816
 
 ## License
 
